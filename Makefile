@@ -6,13 +6,13 @@
 #    By: fras <fras@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
-#    Updated: 2023/09/11 00:19:16 by Julia         ########   odam.nl          #
+#    Updated: 2023/09/11 00:24:52 by Julia         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall -lreadline
+CFLAGS = -Werror -Wextra -Wall
 INCLUDE = -I include
 SRC_DIR = src
 OBJ_DIR = obj
@@ -36,7 +36,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ $(OBJECTS)
+	$(CC) $(CFLAGS) -lreadline $(INCLUDE) -o $@ $(OBJECTS)
 	@$(MAKE) message EXECUTABLE=$@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
