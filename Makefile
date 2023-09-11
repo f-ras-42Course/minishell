@@ -6,13 +6,14 @@
 #    By: fras <fras@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
-#    Updated: 2023/09/05 13:52:37 by fras          ########   odam.nl          #
+#    Updated: 2023/09/11 12:32:27 by juvan-to      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -no-pie
+LIBFT = include/libft/libft.a
 INCLUDE = -I include
 SRC_DIR = src
 OBJ_DIR = obj
@@ -35,13 +36,17 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ $(OBJECTS)
+$(NAME): $(OBJECTS) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lreadline $(LIBFT) $(INCLUDE)
 	@$(MAKE) message EXECUTABLE=$@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(MAKE) directories
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $^
+	@$(MAKE) directories
+	@$(CC) $(CFLAGS) -o $@ -c $^ $(INCLUDE)
+
+# Libfit
+$(LIBFT):
+	@cd include/libft && make
 
 # Directories
 directories:
@@ -49,10 +54,10 @@ directories:
 
 # Cleaning
 clean:
-	$(RM) -r obj
+	@$(RM) -r obj
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 
@@ -70,3 +75,4 @@ resan: fclean fsan
 # Info Message
 message:
 	@echo "\033[92m$(EXECUTABLE) is ready for usage!\033[0m"
+.PHONY:	all clean fclean re
