@@ -6,7 +6,7 @@
 #    By: fras <fras@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
-#    Updated: 2023/09/11 14:03:23 by fras          ########   odam.nl          #
+#    Updated: 2023/09/11 14:11:36 by fras          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,12 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lreadline $(INCLUDE)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lreadline $(INCLUDE)
 	@$(MAKE) message EXECUTABLE=$@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@$(MAKE) directories
-	@$(CC) $(CFLAGS) -o $@ -c $^ $(INCLUDE)
+	$(MAKE) directories
+	$(CC) $(CFLAGS) -o $@ -c $^ $(INCLUDE)
 
 # Directories
 directories:
@@ -49,10 +49,10 @@ directories:
 
 # Cleaning
 clean:
-	@$(RM) -r obj
+	$(RM) -r obj
 
 fclean: clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
