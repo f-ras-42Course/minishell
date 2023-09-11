@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/11 16:13:47 by fras          ########   odam.nl         */
+/*   Updated: 2023/09/11 16:17:16 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*init_prompt(const char *prompt)
 			return (NULL);
 		}
 	}
-	add_history(input);	
+	add_history(input);
 	return (input);
 }
 
