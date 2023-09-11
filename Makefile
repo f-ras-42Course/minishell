@@ -6,14 +6,13 @@
 #    By: fras <fras@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
-#    Updated: 2023/09/11 12:32:27 by juvan-to      ########   odam.nl          #
+#    Updated: 2023/09/11 14:03:23 by fras          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall -no-pie
-LIBFT = include/libft/libft.a
+CFLAGS = -Werror -Wextra -Wall
 INCLUDE = -I include
 SRC_DIR = src
 OBJ_DIR = obj
@@ -36,17 +35,13 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS) $(LIBFT)
-	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lreadline $(LIBFT) $(INCLUDE)
+$(NAME): $(OBJECTS)
+	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lreadline $(INCLUDE)
 	@$(MAKE) message EXECUTABLE=$@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(MAKE) directories
 	@$(CC) $(CFLAGS) -o $@ -c $^ $(INCLUDE)
-
-# Libfit
-$(LIBFT):
-	@cd include/libft && make
 
 # Directories
 directories:
