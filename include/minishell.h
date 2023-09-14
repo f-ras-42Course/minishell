@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/11 16:13:52 by fras          ########   odam.nl         */
+/*   Updated: 2023/09/14 12:39:06 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
+# include "lexer.h"
+# include "parser.h"
 
 bool	proper_start(int argc, char **argv);
 char	*init_prompt(const char *prompt);
