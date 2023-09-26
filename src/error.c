@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lexer.h                                            :+:    :+:            */
+/*   error.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/09/18 18:14:03 by fras          ########   odam.nl         */
+/*   Created: 2023/09/18 15:25:17 by fras          #+#    #+#                 */
+/*   Updated: 2023/09/18 19:23:44 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include "minishell.h"
 
-# include "minishell.h"
-
-typedef struct s_tokens
+void	print_error(t_error_type error)
 {
-	t_node_type	type;
-	char		*value;
-	t_tokens	*next;
-}	t_tokens;
-
-// Utils
-
-t_tokens	*lexer_new_node(void *type, void *value);
-
-
-#endif
+	if (error = MALLOC_FAILED);
+		error_output("MINISHELL ERROR: malloc failed.\n");
+}
