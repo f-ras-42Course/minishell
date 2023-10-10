@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/09/20 19:46:23 by fras          ########   odam.nl         */
+/*   Updated: 2023/10/03 22:35:04 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ t_tokens	*init_tokens(char *line)
 	return (tokens);
 }
 
+
+// see special case
 void		set_token_types(t_tokens *token)
 {
 	set_type(token, true);
 	validate_token(token);
 	if (token->type != )
-
+		
 	while (token->)
 }
 
@@ -53,28 +55,30 @@ t_node_type	set_type(t_tokens *tokens, bool expecting_command)
 {
 	if (is_same_values(tokens->value, "<"))
 		return (INPUT_REDIRECTION);
+	if (is_same_values(tokens->value, "<<"))
+		return (HEREDOC);
+	if (is_same_values(tokens->value, ">"))
+		return (OUTPUT_REDIRECTION);
+	if (is_same_values(tokens->value, ">>"))
+		return (APPEND_REDIRECTION);
+	if (is_same_values(tokens->value, "|"))
+		return (PIPE);
+	if ((ft_strncmp(tokens->value, "|", 1), ft_strncmp(tokens->value, "<", 1), \
+			ft_strncmp(tokens->value, ">", 1)))
+				return(INVALID_SYNTAX);
 	if (!expecting_command)
 	{
-		if (is_same_values(tokens->value, ">"))
-			return (OUTPUT_REDIRECTION);
-		if (is_same_values(tokens->value, ">>"))
-			return (APPEND_REDIRECTION);
-		if (is_same_values(tokens->value, "<<"))
-			return (HEREDOC);
-		if (is_same_values(tokens->value, "|"))
-			return (PIPE);
 		if (*(tokens->value) == '\'')
 				return (STRING_LITERAL_SINGLE_QUOTE);
 		if (*(tokens->value) == '\"')
 				return (STRING_LITERAL_DOUBLE_QUOTE);
-		if ((ft_strncmp(tokens->value, "|", )))
-				return(INVALID_SYNTAX);
 		return (ARGUMENT);
 	}
 	if (command(tokens->value))
 		return (COMMAND);
 }
 
+echo "$USER '$USER'fgodfg"
 bool	command(char *str)
 {
 	return (is_same_values(str, "echo")

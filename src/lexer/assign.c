@@ -6,11 +6,13 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 13:22:14 by fras          #+#    #+#                 */
-/*   Updated: 2023/09/20 19:04:02 by fras          ########   odam.nl         */
+/*   Updated: 2023/10/03 22:34:51 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// make function special case
 
 char	*asign_value(char *line, int *i)
 {
@@ -32,6 +34,7 @@ char	*asign_value(char *line, int *i)
 		value = malloc(get_word_size(line + *i) * sizeof(char) + 1);
 		if (!value)
 			return (NULL);
+		//if special case: = special case copy
 		*i += word_copy(line + *i, value);
 		return (value);
 	}
@@ -52,7 +55,7 @@ size_t	word_copy(char *word, char *dest)
 	size_t	size;
 
 	size = 0;
-	while (*word && *word != ' ')
+	while (*word && *word != ' ') // word != special case (< > | ' ")
 	{
 		*word++ = *dest++;
 		size++;
