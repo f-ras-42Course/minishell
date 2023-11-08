@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/20 19:42:01 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/01 17:40:37 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ typedef enum e_node_type
 typedef	enum e_error_type
 {
 	NONE,
-	MALLOC_FAILED
+	MALLOC_FAILED,
+	UNCLOSED_QUOTE
 }	t_error_type;
 
 

@@ -6,11 +6,13 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 13:22:14 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/01 17:40:37 by fras          ########   odam.nl         */
+/*   Updated: 2023/10/03 22:34:51 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// make function special case
 
 char	*asign_value(char *line, int *i)
 {
@@ -27,24 +29,23 @@ char	*asign_value(char *line, int *i)
 				*i += assign_quote(line[*i], &value);
 				return (value);
 			}
-			return (print_error(line[*i]), line[*i]);
+			*i++;
 		}
-		value = malloc(get_value_size(line + *i) * sizeof(char) + 1);
+		value = malloc(get_word_size(line + *i) * sizeof(char) + 1);
 		if (!value)
 			return (NULL);
+		//if special case: = special case copy
 		*i += word_copy(line + *i, value);
 		return (value);
 	}
 	return ("");
 }
 
-size_t	get_value_size(char *start)
+size_t	get_word_size(char *start)
 {
 	size_t	size;
 
-	if (special_case(start[size]))
-
-	while (start[size] && start[size] != ' ' && !special_case(start[size]))
+	while (start[size] && start[size] != ' ')
 		size++;
 	return (size);
 }
@@ -54,7 +55,7 @@ size_t	word_copy(char *word, char *dest)
 	size_t	size;
 
 	size = 0;
-	while (*word && *word != ' ' && !special_case(*word));
+	while (*word && *word != ' ') // word != special case (< > | ' ")
 	{
 		*word++ = *dest++;
 		size++;
@@ -103,11 +104,6 @@ int	assign_quote( char *line, char **dest)
 	*dest = malloc(quote_is_closed(line[i]) + 1);
 	if (!*dest)
 		return (-1);
-	i += get_quoted_string_literal(line[i + 1], *dest);
+	i += get_string_literal(line[i + 1], *dest);
 	return (i);
-}
-
-bool	special_case(char c)
-{
-	return(c == '<' || c == '>' || c == '|' || c == '\'' || c == '\"');
 }

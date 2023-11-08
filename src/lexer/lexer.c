@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/10/03 22:35:04 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/07 18:28:35 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ t_tokens	*init_tokens(char *line)
 	t_tokens 	*node;
 
 	i = 0;
-	value = malloc_protection1(assign_value(line, &i), NULL);
-	tokens = malloc_protection2(create_token(value), NULL);
+	value = malloc_and_syntax_protections(assign_value(line, &i), NULL);
+	tokens = malloc_protection(create_token(value), NULL);
 	node = tokens;
-	value = malloc_protection1(assign_value(line, &i), tokens);
+	value = malloc_and_syntax_protections(assign_value(line, &i), tokens);
 	while (*value)
 	{
-		node = malloc_protection2(add_new_token(value, node), tokens);
-		value = malloc_protection1(assign_value(line, &i), tokens);
+		node = malloc_protection(add_new_token(value, node), tokens);
+		value = malloc_and_syntax_protections(assign_value(line, &i), tokens);
 	}
 	return (tokens);
 }
@@ -102,7 +102,7 @@ bool	is_same_values(const char *value1, const char *value2)
 	return (false);
 }
 
-char	*malloc_protection1(char *ptr, t_tokens *tokens)
+char	*basic_protections(char *ptr, t_tokens *tokens)
 {
 	if (!ptr)
 	{
@@ -110,10 +110,22 @@ char	*malloc_protection1(char *ptr, t_tokens *tokens)
 		print_error(MALLOC_FAILED);
 		exit(MALLOC_FAILED);
 	}
+	if (*ptr == '\'' || *ptr == '\"')
+	{
+		clear_tokens(tokens);
+		print_error(UNCLOSED_QUOTE);
+		exit(UNCLOSED_QUOTE);
+	}
+	if(invalid_special_case(*ptr))
+	{
+		clear_tokens(tokens);
+		print_error(INVALID_SPECIAL_CASE);
+		exit(INVALID_SPECIAL_CASE);
+	}
 	return (ptr);
 }
 
-t_tokens	*malloc_protection2(t_tokens *ptr, t_tokens *tokens)
+t_tokens	*malloc_and_syntax_protections(t_tokens *ptr, t_tokens *tokens)
 {
 	if (!ptr)
 	{
