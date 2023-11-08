@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 13:22:14 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/01 17:40:37 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/08 13:15:12 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ char	*asign_value(char *line, int *i)
 			}
 			return (print_error(line[*i]), line[*i]);
 		}
-		value = malloc(get_value_size(line + *i) * sizeof(char) + 1);
-		if (!value)
-			return (NULL);
-		*i += word_copy(line + *i, value);
+		if (special_case(line[*i]))
+		{
+			*i += assign_special_case(line[*i], &value);
+			return (value);
+		}
+		i += assign_word(line[*i], &value)
 		return (value);
 	}
 	return ("");
 }
 
-size_t	get_value_size(char *start)
+size_t	get_word_size(char *start)
 {
 	size_t	size;
-
-	if (special_case(start[size]))
 
 	while (start[size] && start[size] != ' ' && !special_case(start[size]))
 		size++;
@@ -97,14 +97,28 @@ size_t	get_string_literal(char *string, char *dest)
 
 int	assign_quote( char *line, char **dest)
 {
-	int i;
+	int	i;
 
-	i = 2;
+	i = 0;
 	*dest = malloc(quote_is_closed(line[i]) + 1);
 	if (!*dest)
 		return (-1);
 	i += get_quoted_string_literal(line[i + 1], *dest);
 	return (i);
+}
+
+int	assign_special_case(char *line, char **dest)
+{
+	int	i;
+}
+
+
+int	assign_word (char *line, char **dest)
+{
+		value = malloc(get_value_size(line + *i) * sizeof(char) + 1);
+		if (!value)
+			return (NULL);
+		*i += word_copy(line + *i, value);
 }
 
 bool	special_case(char c)
