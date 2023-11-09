@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/01 17:40:37 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/09 18:23:17 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_node_type
 	COMMAND,
 	ARGUMENT,
 	FILE,
-	INVALID_SYNTAX,
+	FLAG,
 	NONE
 }	t_node_type;
 
@@ -45,9 +45,20 @@ typedef	enum e_error_type
 {
 	NONE,
 	MALLOC_FAILED,
-	UNCLOSED_QUOTE
+	UNCLOSED_QUOTE,
+	INVALID_SPECIAL_CASE,
+	UNKNOWN_COMMAND,
+	SYNTAX_ERROR
 }	t_error_type;
 
+
+typedef enum e_expected
+{
+	COMMAND,
+	ARGUMENT,
+	FILE,
+	UNKNOWN
+}	t_expected
 
 bool	proper_start(int argc, char **argv);
 char	*init_prompt(const char *prompt);

@@ -1,49 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   assign.c                                           :+:    :+:            */
+/*   utils_assign.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/18 13:22:14 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/08 13:15:12 by fras          ########   odam.nl         */
+/*   Created: 2023/11/08 13:03:21 by fras          #+#    #+#                 */
+/*   Updated: 2023/11/09 15:30:50 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*asign_value(char *line, int *i)
-{
-	char		*value;
-
-	while (line[*i] == ' ')
-		*i++;
-	if (line[*i])
-	{
-		if ((line[*i] == '\'' || line[*i] == '\"'))
-		{
-			if (quote_is_closed(line[*i]))
-			{
-				*i += assign_quote(line[*i], &value);
-				return (value);
-			}
-			return (print_error(line[*i]), line[*i]);
-		}
-		if (special_case(line[*i]))
-		{
-			*i += assign_special_case(line[*i], &value);
-			return (value);
-		}
-		i += assign_word(line[*i], &value)
-		return (value);
-	}
-	return ("");
-}
-
-size_t	get_word_size(char *start)
+size_t	get_value_size(char *start)
 {
 	size_t	size;
 
+	if (special_case(start[size]))
+		
 	while (start[size] && start[size] != ' ' && !special_case(start[size]))
 		size++;
 	return (size);
@@ -56,7 +30,7 @@ size_t	word_copy(char *word, char *dest)
 	size = 0;
 	while (*word && *word != ' ' && !special_case(*word));
 	{
-		*word++ = *dest++;
+		*dest++ = *word++;
 		size++;
 	}
 	*dest = '\0';
@@ -93,35 +67,4 @@ size_t	get_string_literal(char *string, char *dest)
 	}
 	*dest = '\0';
 	return (size);
-}
-
-int	assign_quote( char *line, char **dest)
-{
-	int	i;
-
-	i = 0;
-	*dest = malloc(quote_is_closed(line[i]) + 1);
-	if (!*dest)
-		return (-1);
-	i += get_quoted_string_literal(line[i + 1], *dest);
-	return (i);
-}
-
-int	assign_special_case(char *line, char **dest)
-{
-	int	i;
-}
-
-
-int	assign_word (char *line, char **dest)
-{
-		value = malloc(get_value_size(line + *i) * sizeof(char) + 1);
-		if (!value)
-			return (NULL);
-		*i += word_copy(line + *i, value);
-}
-
-bool	special_case(char c)
-{
-	return(c == '<' || c == '>' || c == '|' || c == '\'' || c == '\"');
 }

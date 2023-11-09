@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/08 13:15:06 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/09 19:59:23 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_tokens	*lexer(char *line)
 	
 	token = init_tokens(line);
 	set_token_types(token);
+	return (token);
 }
 
 t_tokens	*init_tokens(char *line)
@@ -40,18 +41,47 @@ t_tokens	*init_tokens(char *line)
 	return (tokens);
 }
 
-
-// see special case
 void		set_token_types(t_tokens *token)
 {
-	set_type(token, true);
-	validate_token(token);
-	if (token->type != )
-		
-	while (token->)
+	t_tokens *all_tokens;
+	t_expected expected;
+
+	all_tokens = token;
+	expected = COMMAND;
+	token->type = set_type(token, expected);
+	expected = validate_token(token, all_tokens, expected);
+	while (token->next)
+	{
+		token = token->next;
+		token->type = set_type(token, expected);
+		expected = validate_token(token, all_tokens, expected);
+	}
 }
 
-t_node_type	set_type(t_tokens *tokens, bool expecting_command)
+t_expected	validate_token(t_tokens *token, t_tokens *all_tokens, t_expected expect)
+{
+	if (token->type == NONE)
+	{
+		clear_tokens(all_tokens);
+		print_error(MALLOC_FAILED);
+		exit(MALLOC_FAILED);
+	}
+	if (expect == COMMAND && token->type == PIPE)
+	{
+		clear_tokens(all_tokens);
+		print_error(SYNTAX_ERROR);
+		exit(SYNTAX_ERROR);
+	}
+	if (token->type == INPUT_REDIRECTION || token->type == OUTPUT_REDIRECTION \
+		|| token->type == APPEND_REDIRECTION)
+		return (FILE);
+	if (token->type == COMMAND || token->type == ARGUMENT \
+		|| token->type == FLAG)
+		return (ARGUMENT);
+	return (UNKNOWN);
+}
+
+t_node_type	set_type(t_tokens *tokens, t_expected expected)
 {
 	if (is_same_values(tokens->value, "<"))
 		return (INPUT_REDIRECTION);
@@ -63,24 +93,36 @@ t_node_type	set_type(t_tokens *tokens, bool expecting_command)
 		return (APPEND_REDIRECTION);
 	if (is_same_values(tokens->value, "|"))
 		return (PIPE);
-	if ((ft_strncmp(tokens->value, "|", 1), ft_strncmp(tokens->value, "<", 1), \
-			ft_strncmp(tokens->value, ">", 1)))
-				return(INVALID_SYNTAX);
-	if (!expecting_command)
+	if (expected == ARGUMENT)
 	{
 		if (*(tokens->value) == '\'')
-				return (STRING_LITERAL_SINGLE_QUOTE);
+			return (STRING_LITERAL_SINGLE_QUOTE);
 		if (*(tokens->value) == '\"')
-				return (STRING_LITERAL_DOUBLE_QUOTE);
+			return (STRING_LITERAL_DOUBLE_QUOTE);
+		if (*(tokens->value) == '-')
+			return (FLAG);
 		return (ARGUMENT);
 	}
+	if (expected == FILE)
+		return (FILE);
 	if (command(tokens->value))
 		return (COMMAND);
+	return (NONE);
 }
 
-echo "$USER '$USER'fgodfg"
+//echo "$USER '$USER'fgodfg"
 bool	command(char *str)
 {
+	int i;
+
+	i = 0;
+	if (is_quote(*str))
+	{
+		str++;
+		while (!is_quote(str[i]))
+			i++;
+		str[i] = '\0';
+	}
 	return (is_same_values(str, "echo")
 		|| is_same_values(str, "cd")
 		|| is_same_values(str, "pwd")
@@ -102,7 +144,7 @@ bool	is_same_values(const char *value1, const char *value2)
 	return (false);
 }
 
-char	*basic_protections(char *ptr, t_tokens *tokens)
+char	*malloc_and_syntax_protections(char *ptr, t_tokens *tokens)
 {
 	if (!ptr)
 	{
@@ -116,7 +158,7 @@ char	*basic_protections(char *ptr, t_tokens *tokens)
 		print_error(UNCLOSED_QUOTE);
 		exit(UNCLOSED_QUOTE);
 	}
-	if(invalid_special_case(*ptr))
+	if(!valid_special_case(ptr))
 	{
 		clear_tokens(tokens);
 		print_error(INVALID_SPECIAL_CASE);
@@ -125,7 +167,7 @@ char	*basic_protections(char *ptr, t_tokens *tokens)
 	return (ptr);
 }
 
-t_tokens	*malloc_and_syntax_protections(t_tokens *ptr, t_tokens *tokens)
+t_tokens	*malloc_protection(t_tokens *ptr, t_tokens *tokens)
 {
 	if (!ptr)
 	{
@@ -136,3 +178,17 @@ t_tokens	*malloc_and_syntax_protections(t_tokens *ptr, t_tokens *tokens)
 	return (ptr);
 }
 
+bool	valid_special_case(char *ptr)
+{
+	if (is_same_values(ptr, "<"))
+		return (true);
+	if (is_same_values(ptr, "<<"))
+		return (true);
+	if (is_same_values(ptr, ">"))
+		return (true);
+	if (is_same_values(ptr, ">>"))
+		return (true);
+	if (is_same_values(ptr, "|"))
+		return (true);
+	return (false);
+}
