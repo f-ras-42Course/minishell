@@ -6,13 +6,13 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/08 14:15:03 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/09 18:25:26 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/13 17:08:21 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	assign_word(char *line, char **dest)
+int		assign_word(char *line, char **dest)
 {
 	int	i;
 

@@ -6,13 +6,13 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/08 14:16:49 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/09 18:25:02 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/13 16:22:31 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	assign_special_case(char *line, char **dest)
+int		assign_special_case(char *line, char **dest)
 {
 	int	i;
 

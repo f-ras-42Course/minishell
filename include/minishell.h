@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/09 18:23:17 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/13 17:35:03 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,47 +22,17 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
+# include "definitions.h"
 # include "lexer.h"
 # include "parser.h"
-
-typedef enum e_node_type
-{
-	PIPE,
-	INPUT_REDIRECTION,
-	OUTPUT_REDIRECTION,
-	APPEND_REDIRECTION,
-	HEREDOC,
-	STRING_LITERAL_SINGLE_QUOTE,
-	STRING_LITERAL_DOUBLE_QUOTE,
-	COMMAND,
-	ARGUMENT,
-	FILE,
-	FLAG,
-	NONE
-}	t_node_type;
-
-typedef	enum e_error_type
-{
-	NONE,
-	MALLOC_FAILED,
-	UNCLOSED_QUOTE,
-	INVALID_SPECIAL_CASE,
-	UNKNOWN_COMMAND,
-	SYNTAX_ERROR
-}	t_error_type;
-
-
-typedef enum e_expected
-{
-	COMMAND,
-	ARGUMENT,
-	FILE,
-	UNKNOWN
-}	t_expected
 
 bool	proper_start(int argc, char **argv);
 char	*init_prompt(const char *prompt);
 bool	valid_input(const char *input);
 void	execute(char *input, char **envp);
+
+// Error
+
+void	print_error(t_error_type error);
 
 #endif

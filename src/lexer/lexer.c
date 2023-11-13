@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/09 19:59:23 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/13 17:10:06 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_tokens	*init_tokens(char *line)
 void		set_token_types(t_tokens *token)
 {
 	t_tokens *all_tokens;
-	t_expected expected;
+	t_node_type expected;
 
 	all_tokens = token;
 	expected = COMMAND;
@@ -58,7 +58,7 @@ void		set_token_types(t_tokens *token)
 	}
 }
 
-t_expected	validate_token(t_tokens *token, t_tokens *all_tokens, t_expected expect)
+t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type expect)
 {
 	if (token->type == NONE)
 	{
@@ -81,7 +81,7 @@ t_expected	validate_token(t_tokens *token, t_tokens *all_tokens, t_expected expe
 	return (UNKNOWN);
 }
 
-t_node_type	set_type(t_tokens *tokens, t_expected expected)
+t_node_type	set_type(t_tokens *tokens, t_node_type expected)
 {
 	if (is_same_values(tokens->value, "<"))
 		return (INPUT_REDIRECTION);
@@ -105,13 +105,12 @@ t_node_type	set_type(t_tokens *tokens, t_expected expected)
 	}
 	if (expected == FILE)
 		return (FILE);
-	if (command(tokens->value))
+	if (is_command(tokens->value))
 		return (COMMAND);
 	return (NONE);
 }
 
-//echo "$USER '$USER'fgodfg"
-bool	command(char *str)
+bool	is_command(char *str)
 {
 	int i;
 
@@ -180,6 +179,7 @@ t_tokens	*malloc_protection(t_tokens *ptr, t_tokens *tokens)
 
 bool	valid_special_case(char *ptr)
 {
+
 	if (is_same_values(ptr, "<"))
 		return (true);
 	if (is_same_values(ptr, "<<"))

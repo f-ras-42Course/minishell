@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 13:21:42 by fras          #+#    #+#                 */
-/*   Updated: 2023/09/18 18:34:35 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/13 18:50:45 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_tokens	*add_new_token(char *value, t_tokens **prev)
 	new->type = NONE;
 	new->value = value;
 	new->next = NULL;
-	*prev->next = new;
+	(*prev)->next = new;
 	return (new);
 }
 

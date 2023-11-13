@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/08 13:03:21 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/09 15:30:50 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/13 17:07:58 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ size_t	get_value_size(char *start)
 		
 	while (start[size] && start[size] != ' ' && !special_case(start[size]))
 		size++;
-	return (size);
-}
-
-size_t	word_copy(char *word, char *dest)
-{
-	size_t	size;
-
-	size = 0;
-	while (*word && *word != ' ' && !special_case(*word));
-	{
-		*dest++ = *word++;
-		size++;
-	}
-	*dest = '\0';
 	return (size);
 }
 
