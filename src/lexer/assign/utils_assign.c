@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/08 13:03:21 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/13 17:07:58 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/14 14:29:11 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ size_t	get_value_size(char *start)
 {
 	size_t	size;
 
-	if (special_case(start[size]))
+	size = 0;
+	if (is_special_case(start[size]))
 		
-	while (start[size] && start[size] != ' ' && !special_case(start[size]))
+	while (start[size] && start[size] != ' ' && !is_special_case(start[size]))
 		size++;
 	return (size);
 }

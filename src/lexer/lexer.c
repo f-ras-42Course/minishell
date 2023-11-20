@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/13 17:10:06 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/14 14:25:55 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_tokens	*init_tokens(char *line)
 	value = malloc_and_syntax_protections(assign_value(line, &i), tokens);
 	while (*value)
 	{
-		node = malloc_protection(add_new_token(value, node), tokens);
+		node = malloc_protection(add_new_token(value, &node), tokens);
 		value = malloc_and_syntax_protections(assign_value(line, &i), tokens);
 	}
 	return (tokens);
@@ -62,19 +62,19 @@ t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type ex
 {
 	if (token->type == NONE)
 	{
-		clear_tokens(all_tokens);
+		clear_tokens(&all_tokens);
 		print_error(MALLOC_FAILED);
 		exit(MALLOC_FAILED);
 	}
 	if (expect == COMMAND && token->type == PIPE)
 	{
-		clear_tokens(all_tokens);
+		clear_tokens(&all_tokens);
 		print_error(SYNTAX_ERROR);
 		exit(SYNTAX_ERROR);
 	}
 	if (token->type == INPUT_REDIRECTION || token->type == OUTPUT_REDIRECTION \
 		|| token->type == APPEND_REDIRECTION)
-		return (FILE);
+		return (FILENAME);
 	if (token->type == COMMAND || token->type == ARGUMENT \
 		|| token->type == FLAG)
 		return (ARGUMENT);
@@ -103,8 +103,8 @@ t_node_type	set_type(t_tokens *tokens, t_node_type expected)
 			return (FLAG);
 		return (ARGUMENT);
 	}
-	if (expected == FILE)
-		return (FILE);
+	if (expected == FILENAME)
+		return (FILENAME);
 	if (is_command(tokens->value))
 		return (COMMAND);
 	return (NONE);
@@ -147,19 +147,19 @@ char	*malloc_and_syntax_protections(char *ptr, t_tokens *tokens)
 {
 	if (!ptr)
 	{
-		clear_tokens(tokens);
+		clear_tokens(&tokens);
 		print_error(MALLOC_FAILED);
 		exit(MALLOC_FAILED);
 	}
 	if (*ptr == '\'' || *ptr == '\"')
 	{
-		clear_tokens(tokens);
+		clear_tokens(&tokens);
 		print_error(UNCLOSED_QUOTE);
 		exit(UNCLOSED_QUOTE);
 	}
 	if(!valid_special_case(ptr))
 	{
-		clear_tokens(tokens);
+		clear_tokens(&tokens);
 		print_error(INVALID_SPECIAL_CASE);
 		exit(INVALID_SPECIAL_CASE);
 	}
@@ -170,7 +170,7 @@ t_tokens	*malloc_protection(t_tokens *ptr, t_tokens *tokens)
 {
 	if (!ptr)
 	{
-		clear_tokens(tokens);
+		clear_tokens(&tokens);
 		print_error(MALLOC_FAILED);
 		exit(MALLOC_FAILED);
 	}

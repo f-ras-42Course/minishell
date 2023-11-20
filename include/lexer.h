@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/13 18:51:27 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/14 16:09:29 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char		*assign_value(char *line, int *i);
 // Quote
 
 size_t		quote_is_closed(const char *str);
-size_t		get_string_literal(char *string, char *dest);
+size_t		get_quoted_string_literal(char *string, char *dest);
 int			assign_quote(char *line, char **dest);
 bool		is_quote(char c);
 
@@ -60,7 +60,7 @@ size_t		get_string_literal(char *string, char *dest);
 // Word
 
 int			assign_word(char *line, char **dest);
-size_t		word_copy(char *word, char **dest);
+size_t		word_copy(char *word, char *dest);
 size_t		get_word_size(char *start);
 
 

@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 13:22:14 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/13 18:51:20 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/14 16:43:28 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ char	*assign_value(char *line, int *i)
 	{
 		if (is_quote(line[*i]))
 		{
-			if (!quote_is_closed(line[*i]))
+			if (!quote_is_closed(line + *i))
 				return (print_error(line[*i]), line[*i]);
-			*i += assign_quote(line[*i], &value);
+			*i += assign_quote(line + *i, &value);
 			return (value);
 		}
-		if (special_case(line[*i]))
+		if (is_special_case(line[*i]))
 		{
 			*i += assign_special_case(line[*i], &value);
 			return (value);
