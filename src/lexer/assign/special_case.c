@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/08 14:16:49 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/13 16:22:31 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/20 13:39:03 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ size_t	special_case_copy(char *line, char *dest)
 	size_t	size;
 
 	size = 0;
-	while (is_special_case(*line) && !is_quote(*line));
+	while (is_special_case(*line) && !is_quote(*line))
 	{
 		*dest++ = *line++;
 		size++;
@@ -43,7 +43,7 @@ size_t	get_special_case_size(char *start)
 	size_t	size;
 
 	size = 0;
-	while (is_special_case(start[size]) && !is_quote(start[size]));
+	while (is_special_case(start[size]) && !is_quote(start[size]))
 		size++;
 	return (size);
 }

@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/13 15:56:09 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/20 14:52:51 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ int	main(int argc, char **argv, char **envp)
 		input = init_prompt("minishell$ ");
 		if (!input)
 			return (EXIT_SUCCESS);
-		tokens = lexer(input, envp);
-		clear_tokens(tokens);
+		tokens = lexer(input);
+		clear_tokens(&tokens);
 		free(input);
+		printf("envp: %d\n", envp[0][0]);
 	}
 }
 

@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_assign.c                                     :+:    :+:            */
+/*   lexer_tester.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/11/08 13:03:21 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/20 16:56:17 by fras          ########   odam.nl         */
+/*   Created: 2023/11/20 17:27:06 by fras          #+#    #+#                 */
+/*   Updated: 2023/11/22 17:23:42 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "stdio.h"
 
-size_t	get_value_size(char *start)
+void	print_lexer(t_tokens *tokens)
 {
-	size_t	size;
+	int indexer = 0;
 
-	size = 0;
-	if (is_special_case(start[size]))
-		
-	while (start[size] && start[size] != ' ' && !is_special_case(start[size]))
-		size++;
-	return (size);
+	while (tokens)
+	{
+		printf("[TOKEN: %d]\n"\
+				"[VALUE: %s]\n"
+				"[NODE_TYPE: %s]\n\n"
+				"----------------------\n\n", indexer++, tokens->value, node_types(token->types));
+		tokens = tokens->next;
+	}
 }
 
-size_t	get_string_literal(char *string, char *dest)
+char	*node_types(e_node_type *type)
 {
-	char	quote_type;
-	size_t	size;
-
-	size = 0;
-	quote_type = *string;
-	while (*string != quote_type)
-	{
-		*dest++ = *string++;
-		size++;
-	}
-	*dest = '\0';
-	return (size);
+	if (type == )
 }

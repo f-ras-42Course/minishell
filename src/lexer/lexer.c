@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/14 14:25:55 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/22 15:49:47 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_tokens	*lexer(char *line)
 {
-	t_tokens *token;
-	
+	t_tokens	*token;
+
 	token = init_tokens(line);
 	set_token_types(token);
 	return (token);
@@ -43,8 +43,8 @@ t_tokens	*init_tokens(char *line)
 
 void		set_token_types(t_tokens *token)
 {
-	t_tokens *all_tokens;
-	t_node_type expected;
+	t_tokens	*all_tokens;
+	t_node_type	expected;
 
 	all_tokens = token;
 	expected = COMMAND;
@@ -105,30 +105,7 @@ t_node_type	set_type(t_tokens *tokens, t_node_type expected)
 	}
 	if (expected == FILENAME)
 		return (FILENAME);
-	if (is_command(tokens->value))
-		return (COMMAND);
-	return (NONE);
-}
-
-bool	is_command(char *str)
-{
-	int i;
-
-	i = 0;
-	if (is_quote(*str))
-	{
-		str++;
-		while (!is_quote(str[i]))
-			i++;
-		str[i] = '\0';
-	}
-	return (is_same_values(str, "echo")
-		|| is_same_values(str, "cd")
-		|| is_same_values(str, "pwd")
-		|| is_same_values(str, "export")
-		|| is_same_values(str, "unset")
-		|| is_same_values(str, "env")
-		|| is_same_values(str, "exit"));
+	return (COMMAND);
 }
 
 bool	is_same_values(const char *value1, const char *value2)
