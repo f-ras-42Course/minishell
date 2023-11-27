@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/20 14:52:51 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/24 08:57:56 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 #include "minishell.h"
 
+void	print_lexer(t_tokens *tokens);
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
@@ -39,9 +41,13 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 			return (EXIT_SUCCESS);
 		tokens = lexer(input);
+		if (!tokens)
+			continue ;
+		print_lexer(tokens);
 		clear_tokens(&tokens);
 		free(input);
-		printf("envp: %d\n", envp[0][0]);
+		if (envp)
+			envp = NULL;
 	}
 }
 

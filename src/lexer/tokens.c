@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 13:21:42 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/13 18:50:45 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/24 08:36:14 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ void	clear_tokens(t_tokens **node)
 	{
 		*node = (*node)->next;
 		free((*node)->value);
-		free (prevnode);
+		free(prevnode);
 		prevnode = *node;
 	}
-	free (*node);
+	free(*node);
+	*node = NULL;
 }

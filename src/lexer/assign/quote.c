@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/08 14:15:51 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/14 16:09:18 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/24 12:13:18 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ size_t	get_quoted_string_literal(char *string, char *dest)
 		dest[size] = string[size];
 		size++;
 	}
-	*dest = '\0';
+	dest[size++] = quote_type;
+	dest[size] = '\0';
 	return (size);
 }
 

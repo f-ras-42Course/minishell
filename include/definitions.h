@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 17:34:05 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/20 17:26:28 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/24 12:10:34 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ typedef enum e_node_type
 
 typedef	enum e_error_type
 {
-	MALLOC_FAILED,
 	UNCLOSED_QUOTE,
 	INVALID_SPECIAL_CASE,
 	UNKNOWN_COMMAND,
-	SYNTAX_ERROR
+	SYNTAX_ERROR,
+	MALLOC_FAILED
 }	t_error_type;
 
 typedef struct s_tokens

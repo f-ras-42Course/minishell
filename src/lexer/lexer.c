@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/22 15:49:47 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/24 09:34:03 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ t_tokens	*init_tokens(char *line)
 	t_tokens 	*node;
 
 	i = 0;
-	value = malloc_and_syntax_protections(assign_value(line, &i), NULL);
-	tokens = malloc_protection(create_token(value), NULL);
+	value = malloc_protection1(assign_value(line, &i), NULL);
+	tokens = malloc_protection2(create_token(value), NULL);
 	node = tokens;
-	value = malloc_and_syntax_protections(assign_value(line, &i), tokens);
-	while (*value)
+	value = malloc_protection1(assign_value(line, &i), tokens);
+	while (value && *value)
 	{
-		node = malloc_protection(add_new_token(value, &node), tokens);
-		value = malloc_and_syntax_protections(assign_value(line, &i), tokens);
+		node = malloc_protection2(add_new_token(value, &node), tokens);
+		value = malloc_protection1(assign_value(line, &i), tokens);
 	}
 	return (tokens);
 }
@@ -58,14 +58,23 @@ void		set_token_types(t_tokens *token)
 	}
 }
 
+	/*if (*value == '\'' || *value == '\"')
+	{
+		clear_tokens(&tokens);
+		print_error(UNCLOSED_QUOTE);
+		free(value);
+		return (NULL);
+	}
+	if (is_special_case(*value) && !valid_special_case(value))
+	{
+		clear_tokens(&tokens);
+		print_error(INVALID_SPECIAL_CASE);
+		free(value);
+		return (NULL);
+	}*/
+
 t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type expect)
 {
-	if (token->type == NONE)
-	{
-		clear_tokens(&all_tokens);
-		print_error(MALLOC_FAILED);
-		exit(MALLOC_FAILED);
-	}
 	if (expect == COMMAND && token->type == PIPE)
 	{
 		clear_tokens(&all_tokens);
@@ -83,6 +92,7 @@ t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type ex
 
 t_node_type	set_type(t_tokens *tokens, t_node_type expected)
 {
+	if ()
 	if (is_same_values(tokens->value, "<"))
 		return (INPUT_REDIRECTION);
 	if (is_same_values(tokens->value, "<<"))
@@ -120,30 +130,18 @@ bool	is_same_values(const char *value1, const char *value2)
 	return (false);
 }
 
-char	*malloc_and_syntax_protections(char *ptr, t_tokens *tokens)
+char	*malloc_protection1(char *value, t_tokens *tokens)
 {
-	if (!ptr)
+	if (!value)
 	{
 		clear_tokens(&tokens);
 		print_error(MALLOC_FAILED);
 		exit(MALLOC_FAILED);
 	}
-	if (*ptr == '\'' || *ptr == '\"')
-	{
-		clear_tokens(&tokens);
-		print_error(UNCLOSED_QUOTE);
-		exit(UNCLOSED_QUOTE);
-	}
-	if(!valid_special_case(ptr))
-	{
-		clear_tokens(&tokens);
-		print_error(INVALID_SPECIAL_CASE);
-		exit(INVALID_SPECIAL_CASE);
-	}
-	return (ptr);
+	return (value);
 }
 
-t_tokens	*malloc_protection(t_tokens *ptr, t_tokens *tokens)
+t_tokens	*malloc_protection2(t_tokens *ptr, t_tokens *tokens)
 {
 	if (!ptr)
 	{

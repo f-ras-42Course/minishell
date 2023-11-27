@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/14 16:09:29 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/24 09:42:41 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type ex
 t_node_type	set_type(t_tokens *tokens, t_node_type expected);
 bool		is_command(char *str);
 bool		is_same_values(const char *value1, const char *value2);
-char		*malloc_and_syntax_protections(char *ptr, t_tokens *tokens);
-t_tokens	*malloc_protection(t_tokens *ptr, t_tokens *tokens);
+char		*malloc_protection1(char *value, t_tokens *tokens);
+t_tokens	*malloc_protection2(t_tokens *ptr, t_tokens *tokens);
 bool		valid_special_case(char *ptr);
 
 // Tokens
