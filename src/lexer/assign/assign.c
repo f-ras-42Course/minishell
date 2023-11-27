@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 13:22:14 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/27 17:53:59 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/27 20:02:29 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ char	*assign_value(char *line, int *i)
 		{
 			if (!quote_is_closed(line + *i))
 			{
-				(*i)++;
 				value = malloc(2);
-				value[0] = '\"';
+				value[0] = line[*i];
 				value[1] = '\0';
+				(*i)++;
 				return (value);
 			}
 			*i += assign_quote(line + *i, &value);
