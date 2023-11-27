@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/24 09:34:03 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/27 19:57:45 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 t_tokens	*lexer(char *line)
 {
-	t_tokens	*token;
+	t_tokens	*tokens;
 
-	token = init_tokens(line);
-	set_token_types(token);
-	return (token);
+	tokens = init_tokens(line);
+	tokens = check_syntax(tokens);
+	if (!tokens)
+		return (NULL);
+	set_token_types(tokens);
+	return (tokens);
 }
 
 t_tokens	*init_tokens(char *line)
@@ -41,7 +44,32 @@ t_tokens	*init_tokens(char *line)
 	return (tokens);
 }
 
-void		set_token_types(t_tokens *token)
+
+t_tokens *check_syntax(t_tokens *tokens)
+{
+	t_tokens *ptr;
+
+	ptr = tokens;
+	while (ptr)
+	{
+		if (is_quote(*(ptr->value)) && !ptr->value[1])
+		{
+			clear_tokens(&tokens);
+			print_error(UNCLOSED_QUOTE);
+			return (NULL);
+		}
+		if (is_special_case(*(tokens->value)) && !valid_special_case(tokens->value))
+		{
+			clear_tokens(&tokens);
+			print_error(SYNTAX_ERROR);
+			return (NULL);
+		}
+		ptr = ptr->next;
+	}
+	return (tokens);
+}
+
+void	set_token_types(t_tokens *token)
 {
 	t_tokens	*all_tokens;
 	t_node_type	expected;
@@ -73,6 +101,20 @@ void		set_token_types(t_tokens *token)
 		return (NULL);
 	}*/
 
+
+	// if (token->type == UNCLOSED_QUOTATION)
+	// {
+	// 	clear_tokens(&all_tokens);
+	// 	print_error(UNCLOSED_QUOTE);
+	// 	return (NONE);
+	// }
+	// if (expect == COMMAND && token->type == PIPE)
+	// {
+	// 	clear_tokens(&all_tokens);
+	// 	print_error(SYNTAX_ERROR);
+	// 	exit(SYNTAX_ERROR);
+	// }
+
 t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type expect)
 {
 	if (expect == COMMAND && token->type == PIPE)
@@ -92,7 +134,6 @@ t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type ex
 
 t_node_type	set_type(t_tokens *tokens, t_node_type expected)
 {
-	if ()
 	if (is_same_values(tokens->value, "<"))
 		return (INPUT_REDIRECTION);
 	if (is_same_values(tokens->value, "<<"))

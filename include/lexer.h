@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/24 09:42:41 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/27 19:43:20 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 t_tokens	*lexer(char *line);
 t_tokens	*init_tokens(char *line);
+t_tokens 	*check_syntax(t_tokens *tokens);
 void		set_token_types(t_tokens *token);
 t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type expect);
 t_node_type	set_type(t_tokens *tokens, t_node_type expected);
