@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/28 13:01:10 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/28 17:28:15 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ t_tokens *check_syntax(t_tokens *tokens)
 			print_error(UNCLOSED_QUOTE);
 			return (NULL);
 		}
-		if (is_special_case(*(tokens->value)) && !valid_special_case(tokens->value))
+		if (is_special_case(*(ptr->value)) && !is_quote(*(ptr->value)) \
+			&& !valid_special_case(ptr->value))
 		{
 			clear_tokens(&tokens);
-			print_error(SYNTAX_ERROR);
+			print_error(INVALID_SPECIAL_CASE);
 			return (NULL);
 		}
 		ptr = ptr->next;
@@ -76,52 +77,39 @@ void	set_token_types(t_tokens *token)
 
 	all_tokens = token;
 	expected = COMMAND;
-	token->type = set_type(token, expected);
-	expected = validate_token(token, all_tokens, expected);
-	while (token->next)
+	while (token && expected != ERROR)
 	{
-		token = token->next;
 		token->type = set_type(token, expected);
 		expected = validate_token(token, all_tokens, expected);
+		token = token->next;
+	}
+	if (expected == FILENAME)
+	{
+		clear_tokens(&all_tokens);
+		print_error(FILENAME_MISSING);
+		return (NULL);
 	}
 }
 
-	/*if (*value == '\'' || *value == '\"')
-	{
-		clear_tokens(&tokens);
-		print_error(UNCLOSED_QUOTE);
-		free(value);
-		return (NULL);
-	}
-	if (is_special_case(*value) && !valid_special_case(value))
-	{
-		clear_tokens(&tokens);
-		print_error(INVALID_SPECIAL_CASE);
-		free(value);
-		return (NULL);
-	}*/
-
-
-	// if (token->type == UNCLOSED_QUOTATION)
-	// {
-	// 	clear_tokens(&all_tokens);
-	// 	print_error(UNCLOSED_QUOTE);
-	// 	return (NONE);
-	// }
-	// if (expect == COMMAND && token->type == PIPE)
-	// {
-	// 	clear_tokens(&all_tokens);
-	// 	print_error(SYNTAX_ERROR);
-	// 	exit(SYNTAX_ERROR);
-	// }
-
 t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type expect)
 {
+	if (expect == FILENAME && is_quote(*(token->value)))
+	{
+		remove_quotations(token->value);
+		//continue
+		return (UNKNOWN);
+	}
+	if (expect == FILENAME && is_special_case(*(token->value)))
+	{
+		clear_tokens(&all_tokens);
+		print_error(FILENAME_MISSING);
+		return (ERROR);
+	}
 	if (expect == COMMAND && token->type == PIPE)
 	{
 		clear_tokens(&all_tokens);
-		print_error(SYNTAX_ERROR);
-		exit(SYNTAX_ERROR);
+		print_error(PIPE_UNLOGICAL);
+		return (ERROR);
 	}
 	if (token->type == INPUT_REDIRECTION || token->type == OUTPUT_REDIRECTION \
 		|| token->type == APPEND_REDIRECTION)
@@ -195,7 +183,6 @@ t_tokens	*malloc_protection2(t_tokens *ptr, t_tokens *tokens)
 
 bool	valid_special_case(char *ptr)
 {
-
 	if (is_same_values(ptr, "<"))
 		return (true);
 	if (is_same_values(ptr, "<<"))

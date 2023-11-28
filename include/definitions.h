@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 17:34:05 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/27 17:49:33 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/28 13:58:54 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,15 @@ typedef enum e_node_type
 	FLAG,
 	NONE,
 	UNKNOWN,
-	UNCLOSED_QUOTATION,
-	INVALID_SPECIAL
+	ERROR
 }	t_node_type;
 
 typedef	enum e_error_type
 {
 	UNCLOSED_QUOTE,
 	INVALID_SPECIAL_CASE,
-	UNKNOWN_COMMAND,
-	SYNTAX_ERROR,
+	PIPE_UNLOGICAL,
+	FILENAME_MISSING,
 	MALLOC_FAILED
 }	t_error_type;
 

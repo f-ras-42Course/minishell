@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 15:25:17 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/24 12:08:42 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/28 13:48:34 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,10 @@ void	print_error(t_error_type error)
 	if (error == INVALID_SPECIAL_CASE)
 		error_output("MINISHELL ERROR: syntax error. " \
 					"Check special characters.\n");
+	if (error == PIPE_UNLOGICAL)
+		error_output("MINISHELL ERROR: syntax error. " \
+					"Expected command, received pipe.\n");
+	if (error == FILENAME_MISSING)
+		error_output("MINISHELL ERROR: syntax error. " \
+					"Filename not defined for redirection.\n");
 }

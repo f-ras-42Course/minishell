@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/08 14:15:51 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/24 12:13:18 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/28 17:28:06 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,17 @@ int		assign_quote(char *line, char **dest)
 bool	is_quote(char c)
 {
 	return (c == '\'' || c == '\"');
+}
+
+void	remove_quotations(char *string)
+{
+	char temp;
+
+	while (string)
+	{
+		temp = *(string + 1);
+		*string = temp;
+		string++;
+	}
+	*(string - 1) = '\0';
 }
