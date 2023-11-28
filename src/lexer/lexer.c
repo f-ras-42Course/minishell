@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/27 19:57:45 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/28 13:01:10 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_tokens *check_syntax(t_tokens *tokens)
 	ptr = tokens;
 	while (ptr)
 	{
-		if (is_quote(*(ptr->value)) && !ptr->value[1])
+		if (is_quote(*(ptr->value)) && ptr->value[1] == '\0')
 		{
 			clear_tokens(&tokens);
 			print_error(UNCLOSED_QUOTE);
