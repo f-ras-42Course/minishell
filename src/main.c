@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/09/11 16:16:39 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/30 12:06:46 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,28 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
+	t_exe		executor;
+	t_tokens	*tokens;
 
 	if (!proper_start(argc, argv))
 		return (EXIT_FAILURE);
+	init_executor(&executor, envp);
 	while (1)
 	{
-		input = init_prompt("minishell$ ");
-		if (!input)
-			return (EXIT_SUCCESS);
-		execute(input, envp);
-		free(input);
+		init_signal_handler();
+		executor.input = init_prompt("minishell$ ");
+		restore_signals();
+		if (!executor.input)
+			return (ctrl_d(&executor));
+		tokens = lexer(executor.input);
+		if (!tokens)
+			continue ;
+		run_parser(&executor, tokens, 1);
+		run_executor(&executor);
+		clear_tokens(&tokens);
+		free(executor.input);
 	}
+	empty_executor(&executor);
 }
 
 bool	proper_start(int argc, char **argv)

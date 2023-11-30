@@ -1,46 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   prompt.c                                           :+:    :+:            */
+/*   utils_assign.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/11 17:24:21 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/11/08 13:03:21 by fras          #+#    #+#                 */
+/*   Updated: 2023/11/20 16:56:17 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*init_prompt(const char *prompt)
+size_t	get_value_size(char *start)
 {
-	char	*input;
+	size_t	size;
 
-	input = readline(prompt);
-	if (!input)
-	{
-		printf("\n");
-		return (NULL);
-	}
-	while (!valid_input(input))
-	{
-		free (input);
-		input = readline(prompt);
-		if (!input)
-		{
-			printf("\n");
-			return (NULL);
-		}
-	}
-	add_history(input);
-	return (input);
+	size = 0;
+	if (is_special_case(start[size]))
+		
+	while (start[size] && start[size] != ' ' && !is_special_case(start[size]))
+		size++;
+	return (size);
 }
 
-bool	valid_input(const char *input)
+size_t	get_string_literal(char *string, char *dest)
 {
-	while (*input == ' ')
-		input++;
-	if (!*input)
-		return (false);
-	return (true);
+	char	quote_type;
+	size_t	size;
+
+	size = 0;
+	quote_type = *string;
+	while (*string != quote_type)
+	{
+		*dest++ = *string++;
+		size++;
+	}
+	*dest = '\0';
+	return (size);
 }
