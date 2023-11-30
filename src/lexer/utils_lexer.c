@@ -6,30 +6,42 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 19:15:55 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 16:11:39 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/30 19:10:15 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	error_output(char *string)
+bool	is_same_values(const char *value1, const char *value2)
 {
-	write(STDERR_FILENO, string, ft_strlen(string));
+	int	i;
+
+	i = 0;
+	while (value1[i] == value2[i] && value1[i] && value2[i])
+		i++;
+	if (!value1[i] && !value2[i])
+		return (true);
+	return (false);
 }
 
-void	print_error(t_error_type error)
+char	*malloc_protection1(char *value, t_tokens *tokens)
 {
-	if (error == MALLOC_FAILED)
-		error_output("MINISHELL ERROR: malloc failed.\n");
-	if (error == UNCLOSED_QUOTE)
-		error_output("MINISHELL ERROR: unclosed quotation detected.\n");
-	if (error == INVALID_SPECIAL_CASE)
-		error_output("MINISHELL ERROR: syntax error. " \
-					"Check special characters.\n");
-	if (error == PIPE_UNLOGICAL)
-		error_output("MINISHELL ERROR: syntax error. " \
-					"Expected command, received pipe.\n");
-	if (error == FILENAME_MISSING)
-		error_output("MINISHELL ERROR: syntax error. " \
-					"Filename not defined for redirection.\n");
+	if (!value)
+	{
+		clear_tokens(&tokens);
+		print_error(MALLOC_FAILED);
+		exit(MALLOC_FAILED);
+	}
+	return (value);
+}
+
+t_tokens	*malloc_protection2(t_tokens *ptr, t_tokens *tokens)
+{
+	if (!ptr)
+	{
+		clear_tokens(&tokens);
+		print_error(MALLOC_FAILED);
+		exit(MALLOC_FAILED);
+	}
+	return (ptr);
 }
