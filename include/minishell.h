@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/29 16:04:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:56:51 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <limits.h>
+# include "definitions.h"
+# include "lexer.h"
+# include "parser.h"
 # include "libft.h"
 # include "definitions.h"
 # include "signals.h"
@@ -33,5 +37,10 @@ void	print_error(t_error_type error);
 
 bool	proper_start(int argc, char **argv);
 bool	valid_input(const char *input);
+void	execute(char *input, char **envp);
+
+// Error
+
+void	print_error(t_error_type error);
 
 #endif

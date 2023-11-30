@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 12:06:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:57:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 	*/
 
 #include "minishell.h"
+
+void	print_lexer(t_tokens *tokens);
 
 int	main(int argc, char **argv, char **envp)
 {
