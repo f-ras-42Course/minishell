@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Julia <Julia@student.codam.nl>               +#+                     */
+/*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/09 23:09:51 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/30 15:56:51 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/09/09 23:09:51 by fras	         #+#    #+#               */
+/*   Updated: 2023/11/30 16:06:58 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,8 @@
 char	*init_prompt(const char *prompt);
 
 void	print_lexer(t_tokens *tokens);
-void	print_error(t_error_type error);
-
 bool	proper_start(int argc, char **argv);
 bool	valid_input(const char *input);
-void	execute(char *input, char **envp);
-
-// Error
-
 void	print_error(t_error_type error);
 
 #endif
