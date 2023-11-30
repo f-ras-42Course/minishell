@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/30 11:34:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 12:00:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:36:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_exit_code(int code, t_cmd *command, int len)
 	return (code);
 }
 
-void	exit_shell(t_exe *executor, int code, t_cmd *command)
+int	exit_shell(t_exe *executor, int code, t_cmd *command)
 {
 	int	i;
 
@@ -43,9 +43,11 @@ void	exit_shell(t_exe *executor, int code, t_cmd *command)
 	if (i > 2)
 	{
 		cmd_error("exit", ": too many arguments\n");
-		return ;
+		executor->exit_code = 1;
+		return (-1);
 	}
 	code = check_exit_code(code, command, i);
 	empty_executor(executor);
 	exit(code);
+	return (code);
 }

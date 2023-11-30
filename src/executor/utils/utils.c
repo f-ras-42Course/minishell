@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/21 13:29:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 13:23:30 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:07:31 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ bool	check_executable(char *command)
 				return (true);
 			else
 			{
-				ft_putstr_fd("minishell: ", 2);
-				perror(command);
+				cmd_error(command, ": Permission denied\n");
 				exit(126);
 			}
 		}
 		else
 		{
-			ft_putstr_fd("minishell: ", 2);
-			perror(command);
+			cmd_error(command, ": No such file or directory\n");
 			exit(127);
 		}
 	}
@@ -83,21 +81,15 @@ int	open_file(char *filename, int mode)
 void	wait_for_all_child_processes(t_exe *executor)
 {
 	int	index;
-	int	exit_status;
 	int	status;
 
 	index = 0;
-	exit_status = 0;
 	while (executor->pids[index])
 	{
 		waitpid(executor->pids[index++], &status, 0);
 		if (WIFEXITED(status))
-		{
-			exit_status = WEXITSTATUS(status);
-			if (exit_status != 0)
-				executor->exit_code = WEXITSTATUS(status);
-		}
+			executor->exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			executor->exit_code = 0;
+			executor->exit_code = 128 + WTERMSIG(status);
 	}
 }

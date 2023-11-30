@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 23:06:59 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/20 12:54:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:15:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**ft_split_paths(char *whole_str)
 	index = 0;
 	split_paths = ft_split(whole_str, ':');
 	if (!split_paths)
-		error_exit("Malloc error");
+		error_exit(NULL, "Malloc error");
 	while (split_paths[index])
 	{
 		temp = join_three_strs(split_paths[index], NULL, "/");

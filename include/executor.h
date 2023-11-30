@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/29 16:20:26 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:34:17 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	divide_command_in_redirections(t_cmd *node, char *command, int i);
 void	wait_for_all_child_processes(t_exe *executor);
 void	here_doc(t_file *head, char *delimiter);
 void	add_redirection(t_file **filenames, char *name, int mode);
-void	exit_shell(t_exe *executor, int code, t_cmd *command);
 void	temp_parser(t_exe *executor, char *input);
 void	cmd_error(char *cmd, char *error_message);
+void	error_exit(char *command, char *msg);
 void	file_error(char *filename);
 void	free_redirection(t_file *node);
 void	free_command_list(t_exe *executor);
@@ -91,7 +91,6 @@ void	empty_executor(t_exe *executor);
 void	run_executor(t_exe *executor);
 void	redirect_input(t_cmd *command);
 void	empty_array(char **arr);
-void	error_exit(char *msg);
 
 char	*get_cmd_path(t_exe *executor, char *cmd, char **envp, int i);
 char	**convert_envp_to_char(t_exe *executor);
@@ -103,6 +102,7 @@ char	**ft_split_args(char *s);
 char	*get_next_line(int fd);
 char	**manual_envp(void);
 
+int		exit_shell(t_exe *executor, int code, t_cmd *command);
 int		open_file(char *filename, int mode);
 int		handle_heredocs(t_exe *executor);
 int		search_newline(char *s);

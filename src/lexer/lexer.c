@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 13:47:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 13:21:00 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_tokens	*init_tokens(char *line)
 	}
 	return (tokens);
 }
+
 
 t_tokens *check_syntax(t_tokens *tokens)
 {

@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 13:47:20 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:35:29 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ size_t		get_string_literal(char *string, char *dest);
 int			assign_word(char *line, char **dest);
 size_t		word_copy(char *word, char *dest);
 size_t		get_word_size(char *start);
+
 
 // Special case
 
