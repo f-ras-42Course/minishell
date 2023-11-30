@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/24 08:57:56 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/30 15:57:32 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,28 @@ void	print_lexer(t_tokens *tokens);
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		*input;
+	t_exe		executor;
 	t_tokens	*tokens;
 
 	if (!proper_start(argc, argv))
 		return (EXIT_FAILURE);
+	init_executor(&executor, envp);
 	while (1)
 	{
-		input = init_prompt("minishell$ ");
-		if (!input)
-			return (EXIT_SUCCESS);
-		tokens = lexer(input);
+		init_signal_handler();
+		executor.input = init_prompt("minishell$ ");
+		restore_signals();
+		if (!executor.input)
+			return (ctrl_d(&executor));
+		tokens = lexer(executor.input);
 		if (!tokens)
 			continue ;
-		print_lexer(tokens);
+		run_parser(&executor, tokens, 1);
+		run_executor(&executor);
 		clear_tokens(&tokens);
-		free(input);
-		if (envp)
-			envp = NULL;
+		free(executor.input);
 	}
+	empty_executor(&executor);
 }
 
 bool	proper_start(int argc, char **argv)

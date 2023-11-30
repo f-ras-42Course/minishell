@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_lexer.c                                      :+:    :+:            */
+/*   child_signals.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fras <fras@student.codam.nl>                 +#+                     */
+/*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/18 19:15:55 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 15:35:22 by fras          ########   odam.nl         */
+/*   Created: 2023/11/12 18:36:46 by Julia         #+#    #+#                 */
+/*   Updated: 2023/11/12 18:38:55 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "signals.h"
 
-void	error_output(char *string)
+void	child_signal_handler(int signal_num)
 {
-	write(STDERR_FILENO, string, ft_strlen(string));
+	printf("\n");
+	(void) signal_num;
+}
+
+void	init_child_signal_handler(void)
+{
+	signal(SIGINT, child_signal_handler);
+	signal(SIGQUIT, child_signal_handler);
 }

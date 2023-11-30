@@ -6,14 +6,14 @@
 #    By: fras <fras@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
-#    Updated: 2023/09/11 14:11:36 by fras          ########   odam.nl          #
+#    Updated: 2023/11/16 12:33:25 by juvan-to      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-CC = gcc
+CC = cc
 CFLAGS = -Werror -Wextra -Wall
-INCLUDE = -I include
+INCLUDE = -I include -I/usr/local/opt/readline/include
 SRC_DIR = src
 OBJ_DIR = obj
 SOURCES = $(shell find $(SRC_DIR) -type f -name "*.c")
@@ -36,23 +36,25 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lreadline $(INCLUDE)
+	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -L/usr/local/opt/readline/lib -lreadline $(INCLUDE)
 	@$(MAKE) message EXECUTABLE=$@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(MAKE) directories
-	$(CC) $(CFLAGS) -o $@ -c $^ $(INCLUDE)
+	@$(MAKE) directories
+	@$(CC) $(CFLAGS) -o $@ -c $^ $(INCLUDE)
 
 # Directories
 directories:
 	@find $(SRC_DIR) -type d | sed 's/$(SRC_DIR)/$(OBJ_DIR)/' | xargs mkdir -p
+	@mkdir -p build
 
 # Cleaning
 clean:
-	$(RM) -r obj
+	@$(RM) -r obj
+	@$(RM) -r build
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_lexer.c                                      :+:    :+:            */
+/*   ft_error.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fras <fras@student.codam.nl>                 +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/18 19:15:55 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 15:35:22 by fras          ########   odam.nl         */
+/*   Created: 2023/09/15 12:55:41 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/11/20 13:26:16 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	error_output(char *string)
+void	ft_error(char *msg, int err_code)
 {
-	write(STDERR_FILENO, string, ft_strlen(string));
+	if (msg)
+		printf("%s\n", msg);
+	exit(err_code);
 }

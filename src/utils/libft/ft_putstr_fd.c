@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_lexer.c                                      :+:    :+:            */
+/*   ft_putstr_fd.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fras <fras@student.codam.nl>                 +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/18 19:15:55 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 15:35:22 by fras          ########   odam.nl         */
+/*   Created: 2022/10/24 15:02:20 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/11/20 13:26:26 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	error_output(char *string)
+void	ft_putstr_fd(char *s, int fd)
 {
-	write(STDERR_FILENO, string, ft_strlen(string));
+	write(fd, s, ft_strlen(s));
 }

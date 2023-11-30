@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_lexer.c                                      :+:    :+:            */
+/*   ft_malloc.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fras <fras@student.codam.nl>                 +#+                     */
+/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/18 19:15:55 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 15:35:22 by fras          ########   odam.nl         */
+/*   Created: 2023/09/15 12:52:46 by juvan-to      #+#    #+#                 */
+/*   Updated: 2023/11/20 13:27:45 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	error_output(char *string)
+void	*ft_malloc(int size)
 {
-	write(STDERR_FILENO, string, ft_strlen(string));
+	void	*output;
+
+	output = malloc(size);
+	if (!output)
+		ft_error("Malloc failed\n", errno);
+	return (output);
 }
