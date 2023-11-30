@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/08 14:15:51 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/28 17:28:06 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/30 13:04:54 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,12 @@ void	remove_quotations(char *string)
 {
 	char temp;
 
-	while (string)
+	while (1)
 	{
 		temp = *(string + 1);
 		*string = temp;
+		if (!temp)
+			break ;
 		string++;
 	}
 	*(string - 1) = '\0';

@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/27 19:43:20 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/30 12:45:02 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 t_tokens	*lexer(char *line);
 t_tokens	*init_tokens(char *line);
 t_tokens 	*check_syntax(t_tokens *tokens);
-void		set_token_types(t_tokens *token);
+t_tokens	*set_token_types(t_tokens *token);
 t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type expect);
 t_node_type	set_type(t_tokens *tokens, t_node_type expected);
 bool		is_command(char *str);
@@ -51,6 +51,7 @@ size_t		quote_is_closed(const char *str);
 size_t		get_quoted_string_literal(char *string, char *dest);
 int			assign_quote(char *line, char **dest);
 bool		is_quote(char c);
+void		remove_quotations(char *string);
 
 // Utils ASSIGN
 
