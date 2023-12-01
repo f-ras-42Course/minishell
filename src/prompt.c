@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 23:09:27 by Julia         #+#    #+#                 */
-/*   Updated: 2023/09/11 17:24:21 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 12:52:29 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*init_prompt(const char *prompt)
 
 bool	valid_input(const char *input)
 {
-	while (*input == ' ')
+	add_history(input);
+	while (*input == ' ' || *input == '\t')
 		input++;
 	if (!*input)
 		return (false);
