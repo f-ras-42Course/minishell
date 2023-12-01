@@ -35,6 +35,6 @@ char	*init_prompt(const char *prompt);
 void	print_lexer(t_tokens *tokens);
 bool	proper_start(int argc, char **argv);
 bool	valid_input(const char *input);
-void	print_error(t_error_type error);
+void	print_error(t_error_type error, char *special_value);
 
 #endif
