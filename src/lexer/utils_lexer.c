@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 19:15:55 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 19:10:15 by fras          ########   odam.nl         */
+/*   Updated: 2023/12/01 17:17:24 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*malloc_protection1(char *value, t_tokens *tokens)
 	if (!value)
 	{
 		clear_tokens(&tokens);
-		print_error(MALLOC_FAILED);
+		print_error(MALLOC_FAILED, NULL);
 		exit(MALLOC_FAILED);
 	}
 	return (value);
@@ -40,8 +40,18 @@ t_tokens	*malloc_protection2(t_tokens *ptr, t_tokens *tokens)
 	if (!ptr)
 	{
 		clear_tokens(&tokens);
-		print_error(MALLOC_FAILED);
+		print_error(MALLOC_FAILED, NULL);
 		exit(MALLOC_FAILED);
 	}
 	return (ptr);
+}
+
+size_t	fr_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

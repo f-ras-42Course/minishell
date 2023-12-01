@@ -6,36 +6,36 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/30 18:13:12 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 19:51:03 by fras          ########   odam.nl         */
+/*   Updated: 2023/12/01 16:38:06 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, \
+t_node_type	validate_token(t_tokens *token, t_tokens **all_tokens, \
 							t_node_type expect)
 {
 	if (expect == FILENAME && is_quote(*(token->value)))
-	{
 		remove_quotations(token->value);
-		return (UNKNOWN);
-	}
-	if (expect == FILENAME && is_special_case(*(token->value)))
+	else if (expect == FILENAME && is_special_case(*(token->value)))
 	{
-		clear_tokens(&all_tokens);
-		print_error(FILENAME_MISSING);
+		print_error(FILENAME_MISSING, token->value);
+		clear_tokens(all_tokens);
 		return (ERROR);
 	}
-	if (expect == COMMAND && token->type == PIPE)
+	else if (expect == COMMAND && token->type == PIPE)
 	{
-		clear_tokens(&all_tokens);
-		print_error(PIPE_UNLOGICAL);
+		clear_tokens(all_tokens);
+		print_error(PIPE_UNLOGICAL, NULL);
 		return (ERROR);
 	}
-	if (token->type == INPUT_REDIRECTION || token->type == OUTPUT_REDIRECTION \
-		|| token->type == APPEND_REDIRECTION)
+	else if (token->type == PIPE)
+		return (COMMAND);
+	else if (token->type == INPUT_REDIRECTION
+		|| token->type == OUTPUT_REDIRECTION
+		|| token->type == APPEND_REDIRECTION || token->type == HEREDOC)
 		return (FILENAME);
-	if (token->type == COMMAND || token->type == ARGUMENT \
+	else if (token->type == COMMAND || token->type == ARGUMENT \
 		|| token->type == FLAG || token->type == STRING_LITERAL_SINGLE_QUOTE
 		|| token->type == STRING_LITERAL_DOUBLE_QUOTE)
 		return (ARGUMENT);
