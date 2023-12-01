@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 19:54:45 by fras          ########   odam.nl         */
+/*   Updated: 2023/12/01 17:15:42 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_tokens	*lexer(char *line);
 t_tokens	*init_tokens(char *line);
 t_tokens	*check_syntax(t_tokens *tokens);
 t_tokens	*set_token_types(t_tokens *token);
-t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, \
+t_node_type	validate_token(t_tokens *token, t_tokens **all_tokens, \
 			t_node_type expect);
 t_node_type	set_type(t_tokens *tokens, t_node_type expected);
 bool		is_command(char *str);
@@ -39,6 +39,7 @@ void		clear_tokens(t_tokens **node);
 // Utils
 
 void		error_output(char *string);
+char		*get_token_location_invalid_special_case(char *invalid_value);
 
 // Assign
 
@@ -58,6 +59,7 @@ size_t		get_value_size(char *start);
 size_t		quote_is_closed(const char *str);
 size_t		get_string_literal(char *string, char *dest);
 char		*allocated_quote_sign(char quote_sign);
+size_t		fr_strlen(const char *s);
 
 // Word
 
