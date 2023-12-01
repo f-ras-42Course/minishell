@@ -6,23 +6,9 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/11 14:52:11 by fras          #+#    #+#                 */
-/*   Updated: 2023/12/01 12:47:42 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 16:39:33 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*	steps in main:
-
-	prompt <- init_prompt
-	tokens <- lexer(prompt)
-	data structure <- parse(tokens)
-	modified data structure w/ variables <- expand(data)
-	error code <- execute(modified data)
-	check error code -> continue loop or return.
-	
-	Temporary skipping all steps and going from prompt -> execute
-
-	Temp execute prototype: void	execute(char *input, char **envp);
-	*/
 
 #include "minishell.h"
 
@@ -45,7 +31,10 @@ int	main(int argc, char **argv, char **envp)
 			return (ctrl_d(&executor));
 		tokens = lexer(executor.input);
 		if (!tokens)
+		{
+			executor.exit_code = 2;
 			continue ;
+		}
 		run_parser(&executor, tokens, 1);
 		run_executor(&executor);
 		clear_tokens(&tokens);

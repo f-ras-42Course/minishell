@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:26 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 18:17:35 by fras          ########   odam.nl         */
+/*   Updated: 2023/12/01 16:59:39 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ t_tokens	*lexer(char *line)
 	if (!tokens)
 		return (NULL);
 	tokens = set_token_types(tokens);
-	if (!tokens)
-		return (NULL);
 	return (tokens);
 }
 
@@ -56,14 +54,15 @@ t_tokens	*check_syntax(t_tokens *tokens)
 		if (is_quote(*(ptr->value)) && ptr->value[1] == '\0')
 		{
 			clear_tokens(&tokens);
-			print_error(UNCLOSED_QUOTE);
+			print_error(UNCLOSED_QUOTE, NULL);
 			return (NULL);
 		}
 		if (is_special_case(*(ptr->value)) && !is_quote(*(ptr->value)) \
 			&& !valid_special_case(ptr->value))
 		{
+			print_error(INVALID_SPECIAL_CASE, \
+						get_token_location_invalid_special_case(ptr->value));
 			clear_tokens(&tokens);
-			print_error(INVALID_SPECIAL_CASE);
 			return (NULL);
 		}
 		ptr = ptr->next;
@@ -81,13 +80,13 @@ t_tokens	*set_token_types(t_tokens *token)
 	while (token && expected != ERROR)
 	{
 		token->type = set_type(token, expected);
-		expected = validate_token(token, all_tokens, expected);
+		expected = validate_token(token, &all_tokens, expected);
 		token = token->next;
 	}
 	if (expected == FILENAME)
 	{
 		clear_tokens(&all_tokens);
-		print_error(FILENAME_MISSING);
+		print_error(FILENAME_MISSING, "newline");
 		return (NULL);
 	}
 	return (all_tokens);
