@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 18:44:30 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/30 15:35:01 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 16:33:27 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	single_command(t_exe *executor, t_cmd *command)
 	executor->pids[executor->index] = fork();
 	if (executor->pids[executor->index] == 0)
 	{
-		redirect_input(command);
-		redirect_output(command);
+		redirect_input(executor, command);
+		redirect_output(executor, command);
 		if (childprocess_builtins(executor, command))
 			exit (EXIT_SUCCESS);
 		run_command(executor, command);
@@ -73,8 +73,8 @@ void	ft_fork(t_exe *executor, t_cmd *command)
 		init_child_signal_handler();
 		if (executor->index > 0)
 			close(executor->input_fd);
-		redirect_input(command);
-		redirect_output(command);
+		redirect_input(executor, command);
+		redirect_output(executor, command);
 		if (childprocess_builtins(executor, command))
 			exit (executor->exit_code);
 		run_command(executor, command);

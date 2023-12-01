@@ -6,7 +6,7 @@
 #    By: fras <fras@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/09/05 13:47:11 by fras          #+#    #+#                  #
-#    Updated: 2023/11/16 12:33:25 by juvan-to      ########   odam.nl          #
+#    Updated: 2023/12/01 17:26:07 by juvan-to      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ RM = rm -f
 
 ifdef DEBUG
 CFLAGS += -g -D DEBUG=-1
-MLX42_DEBUG = -DDEBUG=1
 endif
 
 ifdef FSAN

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 13:26:10 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 13:26:18 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 14:41:30 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static char	*fill_str(int digits, char *str, int n, int index)
 	digits--;
 	if (n == 0)
 	{
-		str = ft_strdup("0\0");
+		str[0] = '0';
+		str[1] = '\0';
 		return (str);
 	}
 	if (n < 0)
@@ -57,11 +58,12 @@ char	*ft_itoa(int n)
 	int		digits;
 
 	digits = count_digits(n);
+	str = NULL;
 	if (n < 0)
-		str = (char *)malloc((digits + 2));
+		str = (char *)ft_malloc((digits + 2));
 	else
-		str = (char *)malloc((digits + 1));
+		str = (char *)ft_malloc((digits + 1));
 	if (!str)
 		return (NULL);
-	return (str = fill_str(digits, str, n, 0));
+	return (fill_str(digits, str, n, 0));
 }

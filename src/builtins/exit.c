@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/30 11:34:56 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 15:36:15 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 16:33:37 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	exit_shell(t_exe *executor, int code, t_cmd *command)
 	i = 0;
 	if (command)
 	{
-		redirect_input(command);
-		redirect_output(command);
+		redirect_input(executor, command);
+		redirect_output(executor, command);
 		while (command->split[i])
 			i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/29 12:41:24 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/12/01 01:13:52 by Julia         ########   odam.nl         */
+/*   Updated: 2023/12/01 15:44:45 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	handle_value(char **value, char *str, int check)
 		free(temp);
 	}
 }
-
 
 void	export_all_keys(t_exe *executor, char **cmd, char **key_split, int i)
 {
