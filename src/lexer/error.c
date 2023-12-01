@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   error.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
+/*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/11/29 14:18:49 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/29 14:19:00 by juvan-to      ########   odam.nl         */
+/*   Created: 2023/09/18 15:25:17 by fras          #+#    #+#                 */
+/*   Updated: 2023/11/30 19:55:08 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,9 @@ void	print_error(t_error_type error)
 	if (error == FILENAME_MISSING)
 		error_output("MINISHELL ERROR: syntax error. " \
 					"Filename not defined for redirection.\n");
+}
+
+void	error_output(char *string)
+{
+	write(STDERR_FILENO, string, ft_strlen(string));
 }

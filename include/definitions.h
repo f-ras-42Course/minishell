@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 17:34:05 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 15:54:23 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 17:49:21 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef enum e_node_type
 	ERROR
 }	t_node_type;
 
-typedef	enum e_error_type
+typedef enum e_error_type
 {
 	UNCLOSED_QUOTE,
 	INVALID_SPECIAL_CASE,

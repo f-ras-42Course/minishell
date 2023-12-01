@@ -6,7 +6,7 @@
 /*   By: fras <fras@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 12:10:29 by fras          #+#    #+#                 */
-/*   Updated: 2023/11/30 15:35:29 by fras          ########   odam.nl         */
+/*   Updated: 2023/11/30 19:54:45 by fras          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 
 t_tokens	*lexer(char *line);
 t_tokens	*init_tokens(char *line);
-t_tokens 	*check_syntax(t_tokens *tokens);
+t_tokens	*check_syntax(t_tokens *tokens);
 t_tokens	*set_token_types(t_tokens *token);
-t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, t_node_type expect);
+t_node_type	validate_token(t_tokens *token, t_tokens *all_tokens, \
+			t_node_type expect);
 t_node_type	set_type(t_tokens *tokens, t_node_type expected);
 bool		is_command(char *str);
 bool		is_same_values(const char *value1, const char *value2);
@@ -56,13 +57,13 @@ void		remove_quotations(char *string);
 size_t		get_value_size(char *start);
 size_t		quote_is_closed(const char *str);
 size_t		get_string_literal(char *string, char *dest);
+char		*allocated_quote_sign(char quote_sign);
 
 // Word
 
 int			assign_word(char *line, char **dest);
 size_t		word_copy(char *word, char *dest);
 size_t		get_word_size(char *start);
-
 
 // Special case
 
