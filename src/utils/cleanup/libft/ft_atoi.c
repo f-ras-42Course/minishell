@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 13:03:01 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 11:38:10 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 17:21:49 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* This function converts a str to int */
 
-static int	ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
