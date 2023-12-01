@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 23:28:32 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/28 12:41:39 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 17:04:39 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*join_expanded_str(char *s1, char *s2, char *s3)
 		output[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
+	while (s2 && s2[j])
 		output[i++] = s2[j++];
 	j = 0;
 	while (s3[j])

@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 14:13:02 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/28 00:31:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/12/01 15:50:20 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*find_variable_name(char *str, int i)
 	int		start;
 	int		len;
 
+	if (!str)
+		return (NULL);
 	start = i;
 	len = 0;
 	while (str[i] && str[i] != ' ' && str[i] != '\0'
@@ -35,6 +37,7 @@ char	*get_variable(t_exe *executor, char *key)
 	t_envp	*head;
 	char	*exit_code;
 
+	exit_code = NULL;
 	if (ft_strcmp("?", key))
 	{
 		exit_code = ft_itoa(executor->exit_code);

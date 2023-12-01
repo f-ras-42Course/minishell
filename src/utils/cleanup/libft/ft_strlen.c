@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/05 13:44:57 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/20 13:26:41 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 14:32:34 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ int	is_empty_str(const char *s)
 	int	index;
 
 	index = 0;
-	while (s[index])
+	if (s)
 	{
-		if (s[index] != ' ')
-			return (0);
-		index++;
+		while (s[index])
+		{
+			if (s[index] != ' ')
+				return (0);
+			index++;
+		}
 	}
 	return (1);
 }

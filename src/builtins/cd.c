@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 13:40:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 16:58:53 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 13:51:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	*get_path_from_command(t_cmd *command)
 		else if (command->split[1])
 			path = command->split[1];
 	}
+	if (path == NULL)
+		path = "~";
 	return (path);
 }
 
