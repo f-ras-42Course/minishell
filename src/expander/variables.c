@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 14:13:02 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/28 00:31:43 by Julia         ########   odam.nl         */
+/*   Updated: 2023/12/01 14:12:58 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*get_variable(t_exe *executor, char *key)
 	t_envp	*head;
 	char	*exit_code;
 
+	exit_code = NULL;
 	if (ft_strcmp("?", key))
 	{
 		exit_code = ft_itoa(executor->exit_code);
