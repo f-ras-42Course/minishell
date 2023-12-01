@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 16:17:40 by Julia         #+#    #+#                 */
-/*   Updated: 2023/11/30 12:45:35 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 13:45:45 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,7 @@ void	print_variable(t_exe *executor, char *key)
 	char	*value;
 
 	value = NULL;
-	if (key[0] == '$')
-	{
-		key++;
-		value = get_variable(executor, key);
-	}
-	else if (key[0] == '~')
+	if (key[0] == '~')
 	{
 		if (ft_strlen(key) == 1)
 			value = get_variable(executor, "HOME");
@@ -66,7 +61,10 @@ void	echo(t_exe *executor, t_cmd *command)
 			newline = false;
 		while (command->split[i])
 		{
-			printf("%s", command->split[i]);
+			if (ft_strcmp(command->split[i], "~"))
+				print_variable(executor, "~");
+			else
+				printf("%s", command->split[i]);
 			i++;
 			if (command->split[i])
 				printf(" ");
