@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/05 16:52:52 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/12/01 16:40:46 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 16:45:15 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	check_filename_variable(t_exe *executor, t_file *file)
 		str = ft_substr(temp, 1, ft_strlen(temp));
 		value = get_variable(executor, str);
 		file->filename = value;
+		free(str);
+		free(temp);
 	}
 }
 
