@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/03 14:21:27 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/12/01 15:52:27 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 17:19:44 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ char	*read_heredoc_line(t_exe *executor)
 	char	*temp_input;
 
 	input = readline("> ");
+	if (!input)
+	{
+		executor->exit_code = 0;
+		return (NULL);
+	}
 	temp_input = expand_string(executor, input);
 	free(input);
 	return (temp_input);
