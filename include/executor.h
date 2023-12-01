@@ -6,7 +6,7 @@
 /*   By: Julia <Julia@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/09 22:54:38 by Julia         #+#    #+#                 */
-/*   Updated: 2023/12/01 16:32:57 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 16:48:00 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,10 @@ typedef struct s_builtins
 	void	(*function)(t_exe *, t_cmd *);
 }	t_builtins;
 
-void	add_command_node(t_cmd **commands, char *command_line_split, int index);
 void	init_executor(t_exe *executor, char **envp);
-void	divide_command_in_redirections(t_cmd *node, char *command, int i);
 void	wait_for_all_child_processes(t_exe *executor);
-void	here_doc(t_file *head, char *delimiter);
-void	add_redirection(t_file **filenames, char *name, int mode);
 void	redirect_output(t_exe *executor, t_cmd *command);
 void	redirect_input(t_exe *executor, t_cmd *command);
-void	temp_parser(t_exe *executor, char *input);
 void	cmd_error(char *cmd, char *error_message);
 void	error_exit(char *command, char *msg);
 void	file_error(char *filename);
@@ -98,17 +93,12 @@ char	**ft_split_paths(char *whole_str);
 char	*get_current_directory(void);
 char	**get_paths(char **envp);
 char	*expand_string(t_exe *executor, char *str);
-char	**ft_split_args(char *s);
-char	*get_next_line(int fd);
-char	**manual_envp(void);
 
 int		exit_shell(t_exe *executor, int code, t_cmd *command);
 int		open_file(char *filename, int mode);
 int		handle_heredocs(t_exe *executor);
-int		search_newline(char *s);
 int		ctrl_d(t_exe *executor);
 
-bool	check_builtin(t_exe *executor, t_cmd *command);
 bool	ft_strcmp(char *s1, char *s2);
 
 #endif
