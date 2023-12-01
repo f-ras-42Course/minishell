@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/13 13:40:15 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/27 14:43:25 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/11/30 16:58:53 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,36 @@ void	update_directory_variables(t_exe *executor)
 	export(executor, "PWD", pwd);
 }
 
+char	*get_path_from_command(t_cmd *command)
+{
+	char	*path;
+	int		i;
+
+	path = NULL;
+	i = 0;
+	if (command->split)
+	{
+		while (command->split[i])
+			i++;
+		if (i > 2)
+			cmd_error("cd", ": too many arguments\n");
+		else if (command->split[1])
+			path = command->split[1];
+	}
+	return (path);
+}
+
 void	cd(t_exe *executor, t_cmd *command)
 {
 	int		return_value;
 	char	*path;
 
-	path = command->split[1];
+	path = get_path_from_command(command);
+	if (path == NULL)
+	{
+		executor->exit_code = 1;
+		return ;
+	}
 	return_value = chdir(find_cd_path(executor, path));
 	if (return_value != 0)
 	{
