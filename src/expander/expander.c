@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/19 13:47:12 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/12/01 14:28:05 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 16:02:35 by juvan-to      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*expanded_variable(t_exe *executor, char *str, int index)
 	if (!variable)
 		variable = ft_strdup("");
 	str = join_expanded_str(temp, variable, remainder);
-	free(variable);
 	free(temp);
 	free(key);
 	free(remainder);
@@ -73,9 +72,9 @@ void	expand_command(t_exe *executor, t_cmd *command)
 	}
 	temp_output = output;
 	output = handle_quotes(temp_output, NULL, 0, 0);
+	free(temp_output);
 	free(command->command_name);
 	command->command_name = output;
-	free(temp_output);
 }
 
 void	run_expander(t_exe *executor)
