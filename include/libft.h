@@ -6,7 +6,7 @@
 /*   By: juvan-to <juvan-to@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 13:37:19 by juvan-to      #+#    #+#                 */
-/*   Updated: 2023/11/30 11:37:38 by juvan-to      ########   odam.nl         */
+/*   Updated: 2023/12/01 00:36:04 by Julia         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	*ft_malloc(int size);
 int		ft_strncmp(const char *s1, const char *s2, int n);
 int		ft_atoi(const char *str);
 int		ft_strlen(const char *s);
+int		ft_isalnum(int c);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
 
 bool	ft_strcmp(char *s1, char *s2);
 
